@@ -2,6 +2,9 @@ __DEBUG = true
 setmetatable(_G, {__index = rl})
 local vector = require'vector'
 local phy = require'phy'
+log = require'log'
+graphics = require'graphics'
+input = require'input'
 
 local ca = phy.new_circle(20, 20)
 local cb = phy.new_circle(25, 25)
@@ -32,10 +35,15 @@ end
 
 InitWindow(800, 600, "phy")
 phy.init()
+play_ball = world.bodies[1]
 while not WindowShouldClose() do
   local dt = GetFrameTime()
-  world.bodies[1].velocity = handle_movement()
+  -- world.bodies[1].velocity = handle_movement()
   -- apply_movement(world.bodies[1], velocity, GetFrameTime())
+  if input.is_pressed(input.key_l) then
+    log.info("Force applied.")
+    play_ball:add_force(10000, 1)
+  end
   world:update(dt)
   BeginDrawing()
   ClearBackground(BLACK)

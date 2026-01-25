@@ -1,7 +1,15 @@
 local input = {}
 
 input.is_pressed = rl.IsKeyPressed
+input.is_mouse_down = rl.IsMouseButtonDown
+input.is_mouse_pressed = rl.IsMouseButtonPressed
 
 input.key_l = rl.KEY_L
+input.left_mouse_button = rl.MOUSE_BUTTON_LEFT
+input.mouse_left_button = input.left_mouse_button
+input.mouse_right_button = rl.MOUSE_BUTTON_RIGHT
+input.right_mouse_button = input.mouse_right_button
+input.mouse_middle_button = rl.MOUSE_BUTTON_MIDDLE
+input.middle_mouse_button = input.mouse_middle_button
 
 return input

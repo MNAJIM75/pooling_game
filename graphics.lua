@@ -37,6 +37,7 @@ function graphics.draw_sprite(sp, x, y, tint)
 end
 
 graphics.draw_text = rl.DrawText
+graphics.draw_line = rl.DrawLine
 
 return graphics
 

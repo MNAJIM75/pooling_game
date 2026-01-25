@@ -19,6 +19,7 @@ function loader.init()
       log.info("[Loader] " .. file .. " loaded.")
     else
       log.error("[Loader] "..file.." failed to load.")
+      assert(false, "Failed to load data -> " .. file)
     end
   end
   p:close()

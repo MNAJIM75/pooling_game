@@ -1,6 +1,8 @@
 local world
 local bg_sprite
 local bg_x, bg_y
+
+local play_ball
 function game_init()
   phy.init(254*3, 3*128)
   loader.init()
@@ -12,11 +14,11 @@ end
 
 function game_update(dt)
   world:update(dt)
-  if input.is_pressed(rl.KEY_A) then
-    bg_x = bg_x - 1
-  elseif input.is_pressed(rl.KEY_W) then
-    bg_y = bg_y - 1
-  end
+  -- if input.is_pressed(rl.KEY_A) then
+  --   bg_x = bg_x - 1
+  -- elseif input.is_pressed(rl.KEY_W) then
+  --   bg_y = bg_y - 1
+  -- end
 end
 
 function game_draw()

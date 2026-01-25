@@ -90,6 +90,20 @@ function phy.resolve_collision(_ba, _bb)
  
 end
 
+
+-- Function to check point-circle collision
+function phy.point_circle_col(px, py, cx, cy, radius)
+    -- Calculate distance between point and circle center
+    local dx = px - cx
+    local dy = py - cy
+    local distanceSquared = dx * dx + dy * dy
+    
+    -- Compare squared distance with squared radius
+    return distanceSquared <= radius * radius
+end
+
+
+
 function phy.new_world()
   local world = {}
 
@@ -100,6 +114,16 @@ function phy.new_world()
   -- functions
   function world.get_boundery(side)
     return boundery[side]
+  end
+
+  function world:get_body_at(x, y)
+    for i, b in pairs(self.bodies) do
+      local bx, by = b.position.x, b.position.y
+      if phy.point_circle_col(x, y, bx, by, radi) then
+        return b
+      end
+    end
+    return nil
   end
   
   function world:update(dt)
@@ -151,23 +175,40 @@ function phy.new_circle(_x, _y)
 
   -- functions
   function circle:update(dt)
-    if vector.sqr_length(self.velocity) > 0 then
+    -- if vector.sqr_length(self.velocity) > 0 then
+      local ax, ay = self.acceleration.x, self.acceleration.y
       local px, py = self.position.x, self.position.y
       local vx, vy = self.velocity.x, self.velocity.y
+
+      vx = vx + ax * dt
+      vy = vy + ay * dt
       px = px + vx * dt
       py = py + vy * dt
+
+      self.velocity.x = vx
+      self.velocity.y = vy
       self.position.x = px
       self.position.y = py
+      -- self.acceleration.x = 0
+      -- self.acceleration.y = 0
       -- vx = vx * drag
       -- vy = vy * drag
       -- self.velocity.x = vx
       -- self.velocity.y = vy
-    end
+    -- end
   end
   
   function circle:draw()
 
   end
+
+  function circle:add_force(_force_r, _angle)
+    local fx = _force_r * math.cos(_angle)
+    local fy = _force_r * math.sin(_angle)
+    local ax, ay = fx / mass, fy / mass
+    self.acceleration.x = ax
+    self.acceleration.y = ay
+  end  
   return circle
 end
 
