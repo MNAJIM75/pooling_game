@@ -5,10 +5,38 @@ local mass = 10
 local masses = mass * 2
 local sqr_radi = 4 * radi * radi
 local drag = 0.993
+local boundery_width = 100
+local boundery_height = 200
+local boundery = {
+  top = 0,
+  left = 0,
+}
+boundery.right = boundery.left + boundery_width
+boundery.down = boundery.top + boundery_height
+
+function phy.init(_width, _height)
+  local screen_width, screen_height = graphics.width, graphics.height
+  boundery_width = _width or screen_width
+  boundery_height = _height or screen_height
+
+  -- centering arena
+  boundery.left = (screen_width - boundery_width) / 3
+  boundery.top = (screen_height - boundery_height) / 3
+  
+  boundery.right = boundery.left + boundery_width
+  boundery.down = boundery.top + boundery_height
+  log.trace("[Phy] initialized.")
+end
 
 function phy.detect_collision(_ba, _bb)
   local sqr_dist = vector.sqr_dist(_ba.position, _bb.position)
   return sqr_radi > math.abs(sqr_dist)
+end
+
+function phy.rebounce(b)
+  local l, t, r, d = b.position.x - radi, b.position.y - radi, b.position.x + radi, b.position.y + radi
+  if l < boundery.left or r > boundery.right then b.velocity.x = b.velocity.x * -1 end
+  if t < boundery.top or d > boundery.down then b.velocity.y = b.velocity.y * -1 end
 end
 
 function phy.resolve_collision(_ba, _bb)
@@ -76,12 +104,13 @@ function phy.new_world()
     for i=bodies_count, 1, -1 do
       local b = self.bodies[i]
       b:update(dt)
+      phy.rebounce(b)
     end
 
     -- collision loop
     for i = 1, bodies_count - 1 do
+      local ba = self.bodies[i]
       for j = i + 1, bodies_count do
-        local ba = self.bodies[i]
         local bb = self.bodies[j]
         if phy.detect_collision(ba, bb) then
           phy.resolve_collision(ba, bb)
@@ -91,16 +120,20 @@ function phy.new_world()
   end
 
   function world:draw()
-
+    if __DEBUG then
+      graphics.rect_line(boundery.left, boundery.top, boundery.right, boundery.down, graphics.white)
+    end
   end
   
   function world:add_body(_body)
     table.insert(self.bodies, _body)
+    log.info("[Phy.World] body added seccefully.")
   end
   
   function world:remove_body(_body)
     assert(false, "Gundam ya ami")
   end
+  log.info("[Phy.World] created.")
   return world
 end
 
@@ -134,5 +167,8 @@ function phy.new_circle(_x, _y)
   return circle
 end
 
+function phy.close()
+  log.trace("[Phy] closed.")
+end
 
 return phy

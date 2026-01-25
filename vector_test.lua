@@ -1,3 +1,4 @@
+__DEBUG = true
 setmetatable(_G, {__index = rl})
 local vector = require'vector'
 local phy = require'phy'
@@ -30,6 +31,7 @@ function apply_movement(b, velocity, dt)
 end
 
 InitWindow(800, 600, "phy")
+phy.init()
 while not WindowShouldClose() do
   local dt = GetFrameTime()
   world.bodies[1].velocity = handle_movement()
@@ -37,6 +39,7 @@ while not WindowShouldClose() do
   world:update(dt)
   BeginDrawing()
   ClearBackground(BLACK)
+  world:draw()
   for i=1, 9 do
     local b = world.bodies[i]
     local x, y = b.position.x, b.position.y

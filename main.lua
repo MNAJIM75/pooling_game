@@ -1,20 +1,22 @@
-setmetatable(_G, {__index=rl})
+__DEBUG = true
+log = require'log'
+graphics = require'graphics'
+vector = require'vector'
+phy = require'phy'
+dofile("loader.lua")
+dofile("game.lua")
 
-local soldier_t = require'soldier_t'
-
-local window_width, window_height, window_title = 800, 600, "Shader Posiion"
-
-
-local soldier = soldier_t.new()
-print(soldier)
-
-InitWindow(window_width, window_height, window_title)
-while not WindowShouldClose() do
-  local dt = GetFrameTime()
-  soldier:update(dt)
-  BeginDrawing()
-  ClearBackground(BLACK)
-  soldier:draw()
-  EndDrawing()
+log.info("Program Starts") -- Program starts
+graphics.init(graphics.width, graphics.height, graphics.title)
+game_init()
+while not graphics.should() do
+  local dt = graphics.get_dt()
+  game_update(dt)
+  graphics.begin_drawing()
+  graphics.clear(graphics.black)
+  game_draw()
+  graphics.end_drawing()
 end
-CloseWindow()
+game_close()
+graphics.close()
+log.info("Program Ends") -- Program ends
