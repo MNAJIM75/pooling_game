@@ -3,6 +3,7 @@ log = require'log'
 graphics = require'graphics'
 vector = require'vector'
 phy = require'phy'
+input = require'input'
 dofile("loader.lua")
 dofile("game.lua")
 

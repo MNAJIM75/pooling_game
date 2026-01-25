@@ -32,5 +32,11 @@ graphics.yellow = rl.YELLOW
 graphics.gray = rl.GRAY
 graphics.brown = rl.BROWN
 
+function graphics.draw_sprite(sp, x, y, tint)
+  rl.DrawTexture(sp, x, y, tint)
+end
+
+graphics.draw_text = rl.DrawText
+
 return graphics
 

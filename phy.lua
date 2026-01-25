@@ -98,6 +98,10 @@ function phy.new_world()
   
   
   -- functions
+  function world.get_boundery(side)
+    return boundery[side]
+  end
+  
   function world:update(dt)
     local bodies_count = #self.bodies
     -- update
