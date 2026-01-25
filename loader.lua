@@ -13,9 +13,8 @@ function loader.init()
   local path = "./res"  -- folder path
   local p = io.popen('dir "'..path..'" /b /a-d')  -- use "dir" on Windows
   for file in p:lines() do
-    local s = load_texture("./re/"..file)
-    print(s)
-    if s then
+    local s = load_texture("./res/"..file)
+    if s.width > 0 then
       table.insert(sprites, s)
       log.info("[Loader] " .. file .. " loaded.")
     else
@@ -28,7 +27,10 @@ end
 function loader.close()
   log.trace("[Loader] closed.")
   for i,v in pairs(sprites) do
-    unload_texture(v)
-    log.info("[Loader] ".. tostring(i) .. ' sprite unloaded.')
+    if v.width > 0 then
+      unload_texture(v)
+      log.info("[Loader] ".. tostring(i) .. ' sprite unloaded.')
+    else log.error("[Loader] cannot unload empty sprite.")
+    end
   end
 end
