@@ -2,5 +2,7 @@ TODO:
 	# rect to circle collision
 	# orgnizing world loop to handle multi types bodies
 	# rect to circle resolving
+	orgnize the world update loop to seperate the type from the begining
+	minimize the physics collision and resolving to one function hence fusion
 	sprites assigning to physics objs
 	
