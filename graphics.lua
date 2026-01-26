@@ -21,6 +21,7 @@ graphics.begin_drawing = rl.BeginDrawing
 graphics.end_drawing = rl.EndDrawing
 graphics.clear = rl.ClearBackground
 graphics.rect_line = rl.DrawRectangleLines
+graphics.circ_line = rl.DrawCircleLines
 graphics.get_dt = rl.GetFrameTime
 
 graphics.white = rl.WHITE

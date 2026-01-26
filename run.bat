@@ -14,8 +14,12 @@ IF "%~1"=="" (
         IF /I "%~1"=="file" (
            %lua% test_p.lua
         ) ELSE (
-            echo Unknown argument: %~1
-            echo Usage: run.bat [test]
+            IF /I "%~1"=="rc" (
+               %lua% test_r_c.lua
+            ) ELSE (
+                echo Unknown argument: %~1
+                echo Usage: run.bat [test]
+            )
         )
     )
 )
