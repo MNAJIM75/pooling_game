@@ -7,6 +7,8 @@ local sqr_radi = 4 * radi * radi
 local drag = 0.993
 local boundery_width = 100
 local boundery_height = 200
+local friction_coff = 0.2 -- 0.15 - 0.4
+local gravity = 9.81
 local boundery = {
   top = 0,
   left = 0,
@@ -175,7 +177,7 @@ function phy.new_circle(_x, _y)
 
   -- functions
   function circle:update(dt)
-    -- if vector.sqr_length(self.velocity) > 0 then
+    if vector.sqr_length(self.velocity) > 0 then
       local ax, ay = self.acceleration.x, self.acceleration.y
       local px, py = self.position.x, self.position.y
       local vx, vy = self.velocity.x, self.velocity.y
@@ -195,7 +197,8 @@ function phy.new_circle(_x, _y)
       -- vy = vy * drag
       -- self.velocity.x = vx
       -- self.velocity.y = vy
-    -- end
+      self:friction()
+    end
   end
   
   function circle:draw()
@@ -209,6 +212,30 @@ function phy.new_circle(_x, _y)
     self.acceleration.x = ax
     self.acceleration.y = ay
   end  
+
+  function circle:add_impulse(_force_r, _angle)
+    -- F = mv2 - mv1
+    -- *mv1 initial which is zero
+    -- F = mv2
+    -- F is vector
+    -- fx = mvx -> Fcos(a) = m* vcos(a)
+    -- fy = mvy -> Fsin(a) = m* vsin(a)
+    local fx = _force_r * math.cos(_angle)
+    local fy = _force_r * math.sin(_angle)
+    local vx = fx/mass
+    local vy = fy/mass
+    self.velocity.x = vx
+    self.velocity.y = vy
+  end
+
+  function circle:friction()
+    local v_norm = vector.norm(self.velocity)
+    local fx = -friction_coff*gravity* v_norm.x
+    local fy = -friction_coff*gravity* v_norm.y
+    self.acceleration.x = fx
+    self.acceleration.y = fy
+  end
+  
   return circle
 end
 

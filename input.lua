@@ -5,6 +5,7 @@ input.is_mouse_down = rl.IsMouseButtonDown
 input.is_mouse_pressed = rl.IsMouseButtonPressed
 
 input.key_l = rl.KEY_L
+input.key_p = rl.KEY_P
 input.left_mouse_button = rl.MOUSE_BUTTON_LEFT
 input.mouse_left_button = input.left_mouse_button
 input.mouse_right_button = rl.MOUSE_BUTTON_RIGHT

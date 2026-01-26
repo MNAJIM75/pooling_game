@@ -42,7 +42,11 @@ while not WindowShouldClose() do
   -- apply_movement(world.bodies[1], velocity, GetFrameTime())
   if input.is_pressed(input.key_l) then
     log.info("Force applied.")
-    play_ball:add_force(10000, 1)
+    play_ball:add_impulse(-1000, 1)
+  end
+  if input.is_pressed(input.key_p) then
+    log.info(play_ball.acceleration)
+    log.info(play_ball.velocity)
   end
   world:update(dt)
   BeginDrawing()
