@@ -26,6 +26,7 @@ function loader.init()
 end
 
 function loader.close()
+  log.trace("[Loader] closed.")
   for i,v in pairs(sprites) do
     if v.width > 0 then
       unload_texture(v)
@@ -33,5 +34,4 @@ function loader.close()
     else log.error("[Loader] cannot unload empty sprite.")
     end
   end
-  log.trace("[Loader] closed.")
 end

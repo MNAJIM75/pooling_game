@@ -1,15 +1,11 @@
 __DEBUG = true
-
-rl.SetTraceLogLevel(rl.LOG_NONE)
-local game_file = arg[2] or "game.lua"
-
 log = require'log'
 graphics = require'graphics'
 vector = require'vector'
 phy = require'phy'
 input = require'input'
 dofile("loader.lua")
-dofile(game_file)
+dofile("game.lua")
 
 log.info("Program Starts") -- Program starts
 graphics.init(graphics.width, graphics.height, graphics.title)

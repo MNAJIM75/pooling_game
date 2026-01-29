@@ -5,6 +5,7 @@ TODO:
 	orgnize the world update loop to seperate the type from the begining
 	minimize the physics collision and resolving to one function hence fusion
 	sprites assigning to physics objs
-	# surpresseing raylib logging
-	# making the batch file working dynamiclly
+	create the rectangle bounderies
+	mouse interacting
+	polygon shapes
 	

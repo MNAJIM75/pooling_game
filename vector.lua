@@ -37,7 +37,7 @@ function vector.distance(_va, _vb)
   local x = _va.x - _vb.x
   local y = _va.y - _vb.y
   local r = x*x+y*y
-  return math.sqrt(r)
+  return math.sqrt(r), math.atan2(y,x)
 end
 
 

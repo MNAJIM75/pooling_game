@@ -1,13 +1,10 @@
 local mouse = {}
 
-function mouse:init()
-  self.ox = nil
-  self.oy = nil
-  self.cx = nil
-  self.cy = nil
-  self.down = false
-  log.trace("[Mouse] initialized.")
-end
+mouse.ox = nil
+mouse.oy = nil
+mouse.cx = nil
+mouse.cy = nil
+mouse.down = false
 
 function mouse:update(dt)
   self.down = input.is_mouse_down(input.left_mouse_button) 
@@ -27,10 +24,6 @@ end
 
 function mouse:get_body_at()
 
-end
-
-function mouse:close()
-  log.trace("[Mouse] closed.")
 end
 
 return mouse 
