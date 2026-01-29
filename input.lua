@@ -13,4 +13,8 @@ input.right_mouse_button = input.mouse_right_button
 input.mouse_middle_button = rl.MOUSE_BUTTON_MIDDLE
 input.middle_mouse_button = input.mouse_middle_button
 
+function input.get_mouse_position()
+	local mx, my = rl.GetMouseX(), rl.GetMouseY()
+	return mx, my
+end
 return input
