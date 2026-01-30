@@ -40,5 +40,13 @@ end
 graphics.draw_text = rl.DrawText
 graphics.draw_line = rl.DrawLine
 
+-- matrix functions
+function graphics.push() rl.rlPushMatrix() end
+function graphics.pop() rl.rlPopMatrix() end
+function graphics.translate(_x, _y) rl.rlTranslatef(_x, _y, 0.0) end
+function graphics.rotate(_a) rl.rlRotatef(_a, 0, 0, 1) end
+function graphics.scalef(_s) rl.rlScalef(_s, _s, 1) end
+function graphics.identity() rl.rlLoadIdentity() end
+
 return graphics
 
