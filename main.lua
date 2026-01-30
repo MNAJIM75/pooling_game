@@ -1,8 +1,8 @@
 __DEBUG = true
 
-rl.SetTraceLogLevel(rl.LOG_NONE)
 local game_file = arg[2] or "game.lua"
 
+system = require'system'
 log = require'log'
 graphics = require'graphics'
 vector = require'vector'
@@ -12,6 +12,7 @@ dofile("loader.lua")
 dofile(game_file)
 
 log.info("Program Starts") -- Program starts
+system.init()
 graphics.init(graphics.width, graphics.height, graphics.title)
 game_init()
 while not graphics.should() do
@@ -24,4 +25,5 @@ while not graphics.should() do
 end
 game_close()
 graphics.close()
+system.close()
 log.info("Program Ends") -- Program ends
