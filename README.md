@@ -1,2 +1,2 @@
-sprites and resources : https://drive.google.com/drive/folders/1nk6i3JlK4njF9g6PdOdCL9i2uZOpkeTa?usp=drive_link
-Camera.lua: https://github.com/a327ex/STALKER-X
+- sprites and resources : https://drive.google.com/drive/folders/1nk6i3JlK4njF9g6PdOdCL9i2uZOpkeTa?usp=drive_link
+- Camera.lua: https://github.com/a327ex/STALKER-X
