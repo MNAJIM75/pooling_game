@@ -1,7 +1,7 @@
 local graphics = {}
 
-graphics.width = 1280
-graphics.height = 720
+graphics.width = 1366
+graphics.height = 768
 graphics.title = "Poolling"
 
 graphics.init = function(_w, _h)
@@ -23,6 +23,8 @@ graphics.clear = rl.ClearBackground
 graphics.rect_line = rl.DrawRectangleLines
 graphics.circ_line = rl.DrawCircleLines
 graphics.get_dt = rl.GetFrameTime
+graphics.measure_text = rl.MeasureTextEx
+graphics.draw_font = rl.DrawTextPro
 
 graphics.white = rl.WHITE
 graphics.black = rl.BLACK

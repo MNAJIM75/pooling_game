@@ -2,7 +2,7 @@ local system = {}
 system.omit = function() rl.SetTraceLogLevel(rl.LOG_NONE) end
 
 function system.init()
-    system.omit()
+    if not __DEBUG then system.omit() end
     log.trace('[System] initialized.')
 end
 

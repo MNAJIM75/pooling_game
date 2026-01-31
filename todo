@@ -10,3 +10,11 @@ TODO:
 	# polygon shapes
 	# minimize the run batch file
 	# utilizing a camera component
+	gui system
+		# canvas
+		button
+		# labels
+		toggle buttons
+	state-machine for the game with no scenes
+	fixing the file system to use raylib functions
+	

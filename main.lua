@@ -1,6 +1,6 @@
 __DEBUG = true
 
-local game_file = arg[2] or "game.lua"
+local game_file = arg[2] or "game"
 
 system = require'system'
 log = require'log'
@@ -8,8 +8,8 @@ graphics = require'graphics'
 vector = require'vector'
 phy = require'phy'
 input = require'input'
-dofile("loader.lua")
-dofile(game_file)
+require("loader")
+require(game_file)
 
 log.info("Program Starts") -- Program starts
 system.init()
