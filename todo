@@ -11,9 +11,9 @@ TODO:
 	# minimize the run batch file
 	# utilizing a camera component
 	gui system
-		canvas
+		# canvas
 		button
-		labels
+		# labels
 		toggle buttons
 	state-machine for the game with no scenes
 	

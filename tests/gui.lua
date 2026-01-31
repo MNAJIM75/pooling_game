@@ -1,0 +1,20 @@
+local gui
+local canvas
+function game_init()
+    gui = require'gui'
+    gui:init()
+    canvas = gui.new_canvas()
+    canvas:add_element(gui.new_lebel(0, 0, "Gundam Entertaiment"))
+end
+
+function game_update(dt)
+    canvas:update(dt)
+end
+
+function game_draw()
+    canvas:draw()
+end
+
+function game_close()
+    gui:close()
+end
