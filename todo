@@ -16,4 +16,5 @@ TODO:
 		# labels
 		toggle buttons
 	state-machine for the game with no scenes
+	fixing the file system to use raylib functions
 	
