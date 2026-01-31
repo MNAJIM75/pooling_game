@@ -56,7 +56,8 @@ function shapes.draw_trapezoid(xo1, yo1, xo2, yo2, color)
     local third = length - length/3
 
     -- calculating normal
-    local r = 120 - third/3
+    local side_length = math.min(110, third/3)
+    local r = 120 - side_length
     local x1 = xo1 + third * cos_th
     local y1 = yo1 + third * sin_th
     local alpha = -math.pi/2  + theta
