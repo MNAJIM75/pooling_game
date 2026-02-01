@@ -12,6 +12,8 @@ graphics = require'graphics'
 vector = require'vector'
 phy = require'phy'
 input = require'input'
+require'love'
+camera = require'camera'
 require("loader")
 require(game_file)
 

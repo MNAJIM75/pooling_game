@@ -39,6 +39,9 @@ function graphics.draw_sprite(sp, x, y, tint)
   rl.DrawTexture(sp, x, y, tint)
 end
 
+-- void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint);
+graphics.draw_texture_pro = rl.DrawTexturePro
+
 graphics.draw_text = rl.DrawText
 graphics.draw_line = rl.DrawLine
 

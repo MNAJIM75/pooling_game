@@ -17,4 +17,7 @@ TODO:
 		toggle buttons
 	state-machine for the game with no scenes
 	fixing the file system to use raylib functions
+	using another functions for load and unloading fonts
+	# fixing the tests passing
+	# hide or unhide raylib logs depending on a parameter passed to main
 	

@@ -1,9 +1,9 @@
 loader = {}
 
-local load_texture = rl.LoadTexture
-local load_sound = rl.LoadSound
-local unload_texture = rl.UnloadTexture
-local unload_sound = rl.UnloadSound
+loader.load_texture = rl.LoadTexture
+loader.load_sound = rl.LoadSound
+loader.unload_texture = rl.UnloadTexture
+loader.unload_sound = rl.UnloadSound
 
 sprites = {}
 sfx = {}
@@ -13,7 +13,7 @@ function loader.init()
   local path = "./res"  -- folder path
   local p = io.popen('dir "'..path..'" /b /a-d')  -- use "dir" on Windows
   for file in p:lines() do
-    local s = load_texture("./res/"..file)
+    local s = loader.load_texture("./res/"..file)
     if s.width > 0 then
       table.insert(sprites, s)
       log.info("[Loader] " .. file .. " loaded.")
@@ -28,7 +28,7 @@ end
 function loader.close()
   for i,v in pairs(sprites) do
     if v.width > 0 then
-      unload_texture(v)
+      loader.unload_texture(v)
       log.info("[Loader] ".. tostring(i) .. ' sprite unloaded.')
     else log.error("[Loader] cannot unload empty sprite.")
     end
