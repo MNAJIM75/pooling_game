@@ -1,6 +1,10 @@
 __DEBUG = true
+__RAYLIB_BARF = nil
+if arg[3] and arg[3] == 'false' then __RAYLIB_BARF = false end
+if arg[3] and arg[3] == 'true' then __RAYLIB_BARF = true end
 
 local game_file = arg[2] or "game"
+if game_file == "tests." then game_file = "game" end
 
 system = require'system'
 log = require'log'

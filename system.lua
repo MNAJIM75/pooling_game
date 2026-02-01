@@ -2,7 +2,7 @@ local system = {}
 system.omit = function() rl.SetTraceLogLevel(rl.LOG_NONE) end
 
 function system.init()
-    if not __DEBUG then system.omit() end
+    if not __RAYLIB_BARF then system.omit() end
     log.trace('[System] initialized.')
 end
 
@@ -68,12 +68,12 @@ system.get_application_directory = rl.GetApplicationDirectory
 -- int MakeDirectory(const char *dirPath);
 -- Create directories (including full path requested), returns 0 on success
 ---@type function raylib function
-system.make_directory = rl.MakeDirectory
+-- system.make_directory = rl.MakeDirectory
 
 -- bool ChangeDirectory(const char *dir);
 -- Change working directory, return true on success
 ---@type function raylib function
-system.change_directory = rl.ChangeDirectory
+-- system.change_directory = rl.ChangeDirectory
 
 -- bool IsPathFile(const char *path);
 -- Check if a given path is a file or a directory
@@ -83,7 +83,7 @@ system.is_path_file = rl.IsPathFile
 -- bool IsFileNameValid(const char *fileName);
 -- Check if fileName is valid for the platform/OS
 ---@type function raylib function
-system.is_file_name_valid = rl.IsFileNameValid
+-- system.is_file_name_valid = rl.IsFileNameValid
 
 -- FilePathList LoadDirectoryFiles(const char *dirPath);
 -- Load directory filepaths
