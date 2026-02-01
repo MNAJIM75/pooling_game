@@ -5,7 +5,7 @@ local bg_x, bg_y
 local play_ball
 function game_init()
   phy.init(254*3, 3*128)
-  loader.init()
+  loader.load_game_textures()
   world = phy.new_world()
   bg_sprite = sprites[13]
   bg_x, bg_y = world.get_boundery('left'), world.get_boundery('top')

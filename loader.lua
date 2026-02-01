@@ -10,6 +10,9 @@ sfx = {}
 
 function loader.init()
   log.trace("[Loader] initialized.")
+end
+
+function loader.load_game_textures()
   local path = "./res"  -- folder path
   local p = io.popen('dir "'..path..'" /b /a-d')  -- use "dir" on Windows
   for file in p:lines() do

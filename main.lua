@@ -19,6 +19,7 @@ require(game_file)
 
 log.info("Program Starts") -- Program starts
 system.init()
+loader.init()
 graphics.init(graphics.width, graphics.height, graphics.title)
 game_init()
 while not graphics.should() do
