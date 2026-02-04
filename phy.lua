@@ -28,7 +28,7 @@ function phy.init(_width, _height)
   boundery_height = _height or screen_height
 
   -- centering arena
-  boundery.left = (screen_width - boundery_width) / 3
+  boundery.left = (screen_width - boundery_width) / 2
   boundery.top = (screen_height - boundery_height) / 3
   
   boundery.right = boundery.left + boundery_width

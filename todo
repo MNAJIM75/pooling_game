@@ -4,7 +4,6 @@ TODO:
 	# rect to circle resolving
 	orgnize the world update loop to seperate the type from the begining
 	minimize the physics collision and resolving to one function hence fusion
-	sprites assigning to physics objs
 	# surpresseing raylib logging
 	# making the batch file working dynamiclly
 	# polygon shapes
@@ -14,10 +13,19 @@ TODO:
 		# canvas
 		button
 		# labels
-		toggle buttons
-	state-machine for the game with no scenes
+		toggle buttons optional
 	fixing the file system to use raylib functions
 	using another functions for load and unloading fonts
 	# fixing the tests passing
 	# hide or unhide raylib logs depending on a parameter passed to main
+	# centering the arena
+	adding mouse pulling class
+	adding balls with physics
+	sprites assigning to physics objs
+	interactiing between the mouse the balls
+	bounderies for the table of pool
+	stating a good game mechanic - the core gameplay
+	state-machine for the game with no scenes
+	ui main menu
+	networking
 	
