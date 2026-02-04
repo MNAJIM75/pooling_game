@@ -3,6 +3,7 @@ local input = {}
 input.is_pressed = rl.IsKeyPressed
 input.is_mouse_down = rl.IsMouseButtonDown
 input.is_mouse_pressed = rl.IsMouseButtonPressed
+input.is_mouse_released = rl.IsMouseButtonReleased
 
 input.key_l = rl.KEY_L
 input.key_p = rl.KEY_P

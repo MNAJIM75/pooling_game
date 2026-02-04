@@ -4,8 +4,14 @@ function game_init()
     gui = require'gui'
     gui:init()
     canvas = gui.new_canvas()
-    canvas:add_element(gui.new_label(0, 0, "Gundam Entertaiment"))
-    canvas:add_element(gui.new_button())
+    -- canvas:add_element(gui.new_label(200,200, "Gundam Entertaiment"))
+    local menu = gui.new_menu(0, 0, "Main Menu")
+    menu:add_button("Start Game")
+    menu:add_button("Options")
+    menu:add_button("Quit Game")
+    canvas:add_element(menu)
+    
+    -- canvas:add_element(gui.new_button(90, 90))
 end
 
 function game_update(dt)

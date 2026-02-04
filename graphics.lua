@@ -27,6 +27,7 @@ graphics.measure_text = rl.MeasureTextEx
 graphics.draw_font = rl.DrawTextPro
 
 graphics.white = rl.WHITE
+graphics.raywhite = rl.RAYWHITE
 graphics.black = rl.BLACK
 graphics.red = rl.RED
 graphics.green = rl.GREEN
@@ -39,11 +40,16 @@ function graphics.draw_sprite(sp, x, y, tint)
   rl.DrawTexture(sp, x, y, tint)
 end
 
+function graphics.sharp_filter(_tex)
+        rl.SetTextureFilter(_tex, rl.TEXTURE_FILTER_POINT)
+end
+
 -- void DrawTexturePro(Texture2D texture, Rectangle source, Rectangle dest, Vector2 origin, float rotation, Color tint);
 graphics.draw_texture_pro = rl.DrawTexturePro
 
 graphics.draw_text = rl.DrawText
 graphics.draw_line = rl.DrawLine
+graphics.draw_rect = rl.DrawRectangle
 
 -- matrix functions
 function graphics.push() rl.rlPushMatrix() end
