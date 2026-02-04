@@ -10,6 +10,7 @@ local boundery_height = 200
 local friction_coff = 0.2 -- 0.15 - 0.4
 local restitution = 0.2
 local gravity = 9.81
+local boundery_rect
 local boundery = {
   top = 0,
   left = 0,
@@ -32,6 +33,7 @@ function phy.init(_width, _height)
   
   boundery.right = boundery.left + boundery_width
   boundery.down = boundery.top + boundery_height
+  boundery_rect = {x=boundery.x, y=boundery.y, width=boundery_width, height = boundery_height}
   log.trace("[Phy] initialized.")
 end
 
@@ -238,7 +240,7 @@ function phy.new_world()
 
   function world:draw()
     if __DEBUG then
-      graphics.rect_line(boundery.left, boundery.top, boundery.right, boundery.down, graphics.white)
+      graphics.rect_line(boundery.left, boundery.top, boundery_width, boundery_height, graphics.white)
     end
   end
   

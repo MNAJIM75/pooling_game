@@ -6,6 +6,13 @@ function system.init()
     log.trace('[System] initialized.')
 end
 
+function system.change_game(_next_game)
+    assert(nil ~= _next_game and 'string' == type(_next_game), "[System] Next game is invalid.")
+    game_close()
+    require(_next_game)
+    game_init()
+end
+
 function system.close()
     log.trace('[System] closed.')
 end

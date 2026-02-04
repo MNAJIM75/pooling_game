@@ -1,15 +1,19 @@
 local world
 local bg_sprite
-local bg_x, bg_y
+local bg_dest, bg_rect, bg_origin
 
 local play_ball
 function game_init()
-  phy.init(254*3, 3*128)
   loader.load_game_textures()
-  world = phy.new_world()
   bg_sprite = sprites[13]
-  bg_x, bg_y = world.get_boundery('left'), world.get_boundery('top')
+  phy.init(bg_sprite.width, bg_sprite.height)
+  world = phy.new_world()
+  local bg_x, bg_y = world.get_boundery('left'), world.get_boundery('top')
+  local bg_width, bg_height = world.get_boundery('right') - bg_x, world.get_boundery('down') - bg_y
+  bg_dest = {x=bg_x, y=bg_y, width=bg_width, height=bg_height}
+  bg_rect = {x=0, y=0, width=bg_sprite.width, height=bg_sprite.height}
   log.trace("[Game] initialized.")
+  bg_origin = vector.new(0, 0)
 end
 
 function game_update(dt)
@@ -23,10 +27,9 @@ end
 
 function game_draw()
   world:draw()
-  graphics.draw_sprite(
-    bg_sprite,
-    bg_x, bg_y,
-    graphics.white
+  graphics.draw_texture_pro(
+    bg_sprite, bg_rect, bg_dest,
+    bg_origin, 0, graphics.white
   )
   graphics.draw_text(tostring(bg_x), 0, 40, 12, graphics.green)
   graphics.draw_text(tostring(bg_y), 0, 60, 12, graphics.green)

@@ -25,6 +25,9 @@ game_init()
 while not graphics.should() do
   local dt = graphics.get_dt()
   game_update(dt)
+  if input.is_pressed(input.key_a) then
+    system.change_game('tests.mouse_game')
+  end
   graphics.begin_drawing()
   graphics.clear(graphics.black)
   game_draw()
