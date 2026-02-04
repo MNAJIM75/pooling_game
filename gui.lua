@@ -20,16 +20,21 @@ function gui:init()
     assert(self.font_ui.baseSize >= 0, "[Gui] failed to load font.")
 
     self.btn_texture = {}
-    self.btn_texture[self.normal_state] = loader.load_texture("C:/dev/gitrepos/pooling_game/res/gui/PNG/SLIDERS SELECTORS/clean ui_selector-16.png")
-    self.btn_texture[self.hover_state] = loader.load_texture("C:/dev/gitrepos/pooling_game/res/gui/PNG/SLIDERS SELECTORS/clean ui_selector-15.png")
-    self.btn_texture[self.clicked_state] = loader.load_texture("C:/dev/gitrepos/pooling_game/res/gui/PNG/SLIDERS SELECTORS/clean ui_selector-14.png")
-    print(self.btn_texture[1].width)
+    self.btn_texture[self.normal_state] = loader.load_texture("res/gui/PNG/SLIDERS SELECTORS/clean ui_selector-15.png")
+    self.btn_texture[self.hover_state] = loader.load_texture("res/gui/PNG/SLIDERS SELECTORS/clean ui_selector-16.png")
+    self.btn_texture[self.clicked_state] = loader.load_texture("res/gui/PNG/SLIDERS SELECTORS/clean ui_selector-14.png")
     for i=self.normal_state, self.clicked_state do
         graphics.sharp_filter(self.btn_texture[i])
     end
 
-    self.menu_texture = loader.load_texture("C:/dev/gitrepos/pooling_game/res/gui/PNG/CLEAN MENUS/clean ui_clean menu-01.png")
+    self.menu_texture = loader.load_texture("res/gui/PNG/CLEAN MENUS/clean ui_clean menu-01.png")
     graphics.sharp_filter(self.menu_texture)
+    
+    self.inbg_texture = loader.load_texture("res/gui/PNG/SLIDERS SELECTORS/clean ui_gemstone slot.png")
+    graphics.sharp_filter(self.inbg_texture)
+
+    self.mess_texture = loader.load_texture("res/gui/PNG/CLEAN MENUS/clean ui_clean menu-07.png")
+    graphics.sharp_filter(self.mess_texture)
 
     center_width = graphics.width / 2
     center_height = graphics.height / 2
@@ -129,22 +134,34 @@ function gui.new_button(_x, _y, _content)
                 self.state = gui.clicked_state
             end
             if self.state == gui.hover_state and input.is_mouse_released(input.left_mouse_button) then
-                if self.on_click then self.on_click() else log.warn("[Gui Button] no cilck function!.") end
+                if self.on_click then self.on_click() else log.warn("[Gui Button] no click function!.") end
             end
         end
     end
     
     function b:draw()
         if not self.enable then return end
-        -- if self.state == gui.hover_state then self.color = graphics.white
-        -- elseif self.state == gui.clicked_state then self.color = graphics.red
-        -- else self.color = graphics.green end
-        graphics.draw_texture_pro(
-            gui.btn_texture[self.state],
-            self.rect[self.state], self.dest[self.state],
-            self.origin[self.state], self.angle,
-            self.color
-        )
+        if self.state == gui.hover_state then
+            graphics.draw_texture_pro(
+                gui.btn_texture[gui.normal_state],
+                self.rect[gui.normal_state], self.dest[gui.normal_state],
+                self.origin[gui.normal_state], self.angle,
+                self.color
+            )
+            graphics.draw_texture_pro(
+                gui.btn_texture[self.state],
+                self.rect[self.state], self.dest[self.state],
+                self.origin[self.state], self.angle,
+                self.color
+            )
+        else
+            graphics.draw_texture_pro(
+                gui.btn_texture[self.state],
+                self.rect[self.state], self.dest[self.state],
+                self.origin[self.state], self.angle,
+                self.color
+            )
+        end
         self.label:draw()
     end
     return b
@@ -169,6 +186,7 @@ function gui.new_menu(_x, _y, _content)
     function m:add_button(_btn_string, _on_click)
         assert(_btn_string and type(_btn_string) == "string", "[Gui Menu] Wrong type type added to the menu.")
         local btn = gui.new_button(self.position.x, self.position.y+self.y_start+(#self.btn_list*self.y_padding), _btn_string)
+        if _on_click then btn.on_click = _on_click end
         table.insert(self.btn_list, btn)
     end
 
@@ -213,12 +231,50 @@ function gui.new_menu(_x, _y, _content)
     return m
 end
 
+function gui.new_interactive_bg()
+    local bg = gui.new_element(0, 0)
+    -- bg.rect = gui.new_rect(0, 0, gui.inbg_texture.width, gui.inbg_texture.height)
+    bg.rect = gui.new_rect(0, 0, graphics.width, graphics.height)
+    bg.dest = gui.new_rect(0, 0, graphics.width, graphics.height)
+    bg.origin = vector.new(bg.dest.width/2, bg.dest.height/2)
+
+    function bg:draw()
+        graphics.draw_texture_pro(
+            gui.inbg_texture,
+            self.rect, self.dest, self.origin, 0,
+            rl.DARKGRAY
+        )
+    end
+    return bg
+end
+
+function gui.new_message(_content)
+    local m = gui.new_element(0, 0)
+    m.rect = gui.new_rect(0, 0, gui.mess_texture.width, gui.mess_texture.height)
+    m.dest = m.rect
+    m.origin = vector.new(m.dest.width/2, m.dest.height/2)
+    m.label = gui.new_label(-330, -100, "system", 46, nil, nil, nil, 'font_ui')
+    m.content = gui.new_label(0, 10, _content, 46, nil, nil, nil, 'font_ui')
+    function m:draw()
+        graphics.draw_texture_pro(
+            gui.mess_texture,
+            self.rect, self.dest, self.origin,
+            0, graphics.white
+        )
+        self.label:draw()
+        self.content:draw()
+    end
+    return m
+end
+
 function gui:close()
     rl.UnloadFont(self.font_label)
     rl.UnloadFont(self.font_ui)
     loader.unload_texture(self.btn_texture[gui.normal_state])
     loader.unload_texture(self.btn_texture[gui.hover_state])
     loader.unload_texture(self.btn_texture[gui.clicked_state])
+    loader.unload_texture(self.inbg_texture)
+    loader.unload_texture(self.mess_texture)
     log.info("[Gui] closed.")
 end
 

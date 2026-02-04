@@ -15,6 +15,9 @@ TODO:
 			# issue: buttons dont change position on different value of pos
 		# labels
 		# menus
+			# fixing on click function in menu buttons
+		# background
+		# message box
 		toggle buttons optional
 	fixing the file system to use raylib functions
 	using another functions for load and unloading fonts
@@ -29,6 +32,7 @@ TODO:
 	stating a good game mechanic - the core gameplay
 	state-machine for the game with no scenes
 	ui main menu
+		# basic shape and feel
 	networking
 	# clean the repo from unwanted files
 	

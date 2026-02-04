@@ -4,7 +4,7 @@ if arg[3] and arg[3] == 'false' then __RAYLIB_BARF = false end
 if arg[3] and arg[3] == 'true' then __RAYLIB_BARF = true end
 
 local game_file = arg[2] or "game"
-if game_file == "tests." then game_file = "game" end
+if game_file == "tests." then game_file = "game_mainmenu" end
 
 system = require'system'
 log = require'log'
@@ -15,6 +15,7 @@ input = require'input'
 require'love'
 camera = require'camera'
 require("loader")
+gui = require'gui'
 require(game_file)
 
 log.info("Program Starts") -- Program starts
