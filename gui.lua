@@ -9,13 +9,16 @@ function gui:init()
     
     self.camera = camera()
     self.camera:follow(0,0)
+
     
     -- TODO: use another functions for loading and unloading fonts
-    self.font_label = rl.LoadFontEx("./res/fonts/Couple Together.otf", 32*4, nil, 0)
+    self.font_label_size = 32*4
+    self.font_label = rl.LoadFontEx("./res/fonts/Couple Together.otf", self.font_label_size, nil, 0)
     rl.SetTextureFilter(self.font_label.texture, rl.TEXTURE_FILTER_POINT)
     assert(self.font_label.baseSize >= 0, "[Gui] failed to load font.")
-
-    self.font_ui = rl.LoadFontEx("./res/fonts/open-sans/OpenSans-Bold.ttf", 32*4, nil, 0)
+    
+    self.font_ui_size = 32*4
+    self.font_ui = rl.LoadFontEx("./res/fonts/open-sans/OpenSans-Bold.ttf", self.font_ui_size, nil, 0)
     rl.SetTextureFilter(self.font_ui.texture, rl.TEXTURE_FILTER_POINT)
     assert(self.font_ui.baseSize >= 0, "[Gui] failed to load font.")
 
@@ -53,6 +56,7 @@ function gui.new_canvas()
     end
 
     function c:add_element(_el)
+        assert(_el.type ~= nil, "[Gui Canvas] Unknown gui type.")
         table.insert(self.elements, _el)
     end
 
@@ -91,6 +95,16 @@ function gui.new_label(_x, _y, _content, _size, _color, _spacing, _angle, _font)
     l.angle = _angle or 0
     l.measure_v = graphics.measure_text(gui[l.font], l.content, l.size, l.spacing)
     l.origin = vector.new(l.measure_v.x/2, l.measure_v.y/2)
+    function l:change_label(_content)
+        self.content = _content or ""
+        -- self.font = _font or "font_label"
+        -- self.size = _size or 32*4
+        -- self.color = _color or graphics.white
+        -- self.spacing = _spacing or 1
+        -- self.angle = _angle or 0
+        self.measure_v = graphics.measure_text(gui[self.font], self.content, self.size, self.spacing)
+        self.origin = vector.new(self.measure_v.x/2, self.measure_v.y/2)
+    end
     function l:draw()
         graphics.draw_font(
             gui[self.font],
@@ -109,7 +123,7 @@ function gui.new_button(_x, _y, _content)
     b.type = "Button"
 
     -- gui style
-    b.label = gui.new_label(_x, _y, _content, 46, nil, nil, nil, 'font_ui')
+    b.label = gui.new_label(_x, _y-3, _content, 46, nil, nil, nil, 'font_ui')
     b.correction = 0
     b.rect, b.dest, b.origin, b.collision_box = {}, {}, {}, {}
     for i=gui.normal_state, gui.clicked_state do
@@ -233,10 +247,18 @@ end
 
 function gui.new_interactive_bg()
     local bg = gui.new_element(0, 0)
+    bg.type = "Interactive Background"
     -- bg.rect = gui.new_rect(0, 0, gui.inbg_texture.width, gui.inbg_texture.height)
     bg.rect = gui.new_rect(0, 0, graphics.width, graphics.height)
     bg.dest = gui.new_rect(0, 0, graphics.width, graphics.height)
     bg.origin = vector.new(bg.dest.width/2, bg.dest.height/2)
+
+    function bg:update(dt)
+        -- self.rect.x = self.rect.x - dt * 20
+        self.rect.y = self.rect.y + dt * 20
+        -- if self.rect.x <= graphics.width then self.rect.x = self.rect.x + graphics.width end
+        if self.rect.y > graphics.height then self.rect.y = self.rect.y - graphics.height end
+    end
 
     function bg:draw()
         graphics.draw_texture_pro(
@@ -250,6 +272,7 @@ end
 
 function gui.new_message(_content)
     local m = gui.new_element(0, 0)
+    m.type = "Message"
     m.rect = gui.new_rect(0, 0, gui.mess_texture.width, gui.mess_texture.height)
     m.dest = m.rect
     m.origin = vector.new(m.dest.width/2, m.dest.height/2)
@@ -265,6 +288,37 @@ function gui.new_message(_content)
         self.content:draw()
     end
     return m
+end
+
+function gui.new_title(_x, _y)
+    local t = gui.new_element(_x, _y)
+    t.type = "Title"
+    t.names = {
+        "Gundam", "Sdgga", "Sdgga - Bitchs", "Sadreen", "Diggz'z", "Ossi Lossi"
+    }
+    t.main_label = gui.new_label(_x, _y - 64, t.names[1], 32*4)
+    t.entr_label = gui.new_label(_x, _y + 24, "Entertaiment", 32*4)
+
+    t.timer = 0
+    t.timeout = 10
+    t.index = 1
+    function t:update(dt)
+        self.timer = self.timer + dt
+        if self.timer > self.timeout then
+            self.index = self.index + 1
+            if self.index > #self.names then self.index = 1 end
+            self.main_label:change_label(self.names[self.index])
+            if self.index == 4 then self.main_label.color = graphics.pink
+            else self.main_label.color = graphics.white end
+            self.timer = self.timer - self.timeout
+        end
+    end
+
+    function t:draw()
+        self.main_label:draw()
+        self.entr_label:draw()
+    end
+    return t
 end
 
 function gui:close()

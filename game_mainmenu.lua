@@ -9,11 +9,12 @@ function game_init()
     gui:init()
     canvas = gui.new_canvas()
     canvas:add_element(gui.new_interactive_bg())
-    menu = gui.new_menu(0, 0, "Billiardo")
+    menu = gui.new_menu(-graphics.width / 2 + 190, 0, "Billiardo")
     menu:add_button("start game", start_game_callback)
     menu:add_button("options")
     menu:add_button("quit game")
     canvas:add_element(menu)
+    canvas:add_element(gui.new_title(0, 0))
 end
 
 function game_update(dt)
