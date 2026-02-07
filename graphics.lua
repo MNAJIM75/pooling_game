@@ -36,6 +36,7 @@ graphics.yellow = rl.YELLOW
 graphics.gray = rl.GRAY
 graphics.brown = rl.BROWN
 graphics.pink = rl.PINK
+graphics.clear_color = graphics.black
 
 function graphics.draw_sprite(sp, x, y, tint)
   rl.DrawTexture(sp, x, y, tint)

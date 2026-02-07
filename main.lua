@@ -30,7 +30,7 @@ while not graphics.should() do
     system.change_game('tests.mouse_game')
   end
   graphics.begin_drawing()
-  graphics.clear(graphics.black)
+  graphics.clear(graphics.clear_color)
   game_draw()
   graphics.end_drawing()
 end
